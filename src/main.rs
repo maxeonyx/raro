@@ -1,13 +1,12 @@
-use std::{collections::HashMap, path::PathBuf};
-use std::fs;
 use std::error::Error;
+use std::fs;
 use std::path::Path;
+use std::path::PathBuf;
 
 mod parser;
 
 // Add two numbers.
 fn run(file: impl AsRef<Path>) -> Result<(), Box<dyn Error>> {
-
     // Read file to string
     let contents = fs::read_to_string(file)?;
 
@@ -16,13 +15,13 @@ fn run(file: impl AsRef<Path>) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-use clap::{Parser, Subcommand};
+use clap::Parser;
 
 /// RARO - Running ARithmetic with Objects
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[clap(value_name="FILE")]
+    #[clap(value_name = "FILE")]
     file: PathBuf,
 }
 
