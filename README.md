@@ -23,7 +23,7 @@ Did your teachers at school brainwash you into a 6-letter acronym instead?
 - P.E.N.N.A.S.
 - B.E.D.M.A.S.
 
-Enough of such gaslighting. Free yourself from order of operations. Never
+Enough of such gaslighting. Free yourself from order. Never
 retrace your steps.
 
 *RARO* is an "append only" programming language which lets you program in the same
