@@ -94,7 +94,7 @@ fn bar {
 ```
 >>> [ 1, 2, 3, 4, 5 ] map { + 2 }
 [ 7, 4, 5, 6, 3 ]
-# or any other order
+# or any other order. Randomized in debug mode.
 ```
 
 We recognize that ordering is a commonly observable side effect of parallelism,
