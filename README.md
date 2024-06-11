@@ -2,7 +2,7 @@
 
 Return to the intuitive thought patterns of your pre-sullied mind.
 
-#### **R**unning **Ar**ithmetic with **O**bjects
+## **R**_unning_ **Ar**_ithmetic_ with **O**_bjects_
 
 **Have you ever done maths like this?**
 
