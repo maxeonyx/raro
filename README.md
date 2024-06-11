@@ -92,6 +92,7 @@ fn bar {
 ## `[]` is an un-ordered set
 
 ```
+# map built-in takes an anonymous function
 >>> [ 1, 2, 3, 4, 5 ] map { + 2 }
 [ 7, 4, 5, 6, 3 ]
 # or any other order. Randomized in debug mode.
@@ -104,7 +105,11 @@ paralellize the `map` built-in.
 If ordering is needed, use a map with numeric keys:
 
 ```
->>> { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } map { as { k, v }; { k: k, v: v + 2 } }
+>>> { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } as ordered
+{ 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
+
+# `map` over an ordered set (a `struct`) provides { k: str, v: str } pair structs.
+>>> ordered map { .v + 2 } # . is simply an operator on the previous expression, implicitly a struct.
 { 1: 3, 2: 4, 3: 5, 4: 6, 5: 7 }
 ```
 
