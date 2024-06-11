@@ -71,7 +71,7 @@ Error( ... )
 
 ## Functions have one implicit argument
 
-```python
+```rust
 fn foo {
     ## Adds two to its argument.
     + 2
@@ -80,12 +80,12 @@ fn foo {
 
 But, we can unpack it:
 
-```python
+```rust
 fn bar {
     as { a, b, c }; # Expects the implicit argument to be a map, and binds
                     # keys a, b, c to variables.
-    ## Breaks "FEMDAD" or whatever
-    a + b * c
+    ## Use "FEMDAD" or whatever with ( )
+    a + (b * c)
 }
 ```
 
@@ -104,7 +104,7 @@ paralellize the `map` built-in.
 
 If ordering is needed, use a map with numeric keys:
 
-```python
+```rust
 >>> { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } as ordered
 { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
 
