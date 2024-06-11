@@ -6,7 +6,7 @@ Return to the intuitive thought patterns of your pre-sullied mind.
 
 **Have you ever done maths like this?**
 
-```rust
+```python
 1 + 2 = 3
 
 + 3 = 6
@@ -31,22 +31,22 @@ way that you think - forward!
 
 # Running Arithmetic
 
-```rust
+```python
 >>> 1
 1
 ```
 
-```
+```python
 >>> 1 + 2
 3
 ```
 
-```rust
+```python
 >>> 1 + 2 * 3
 9
 ```
 
-```
+```python
 >>> 1 + 2 as three + 4 as seven
 7
 >>> three + seven
@@ -55,12 +55,12 @@ way that you think - forward!
 
 # With Objects
 
-```rust
+```python
 >>> { a: 1 }.a
 1
 ```
 
-```rust
+```python
 >>> { a: 1 }.b try + 2
 Error( ... )
 >>> { a: 1 }.a try + 2
@@ -71,7 +71,7 @@ Error( ... )
 
 ## Functions have one implicit argument
 
-```rust
+```python
 fn foo {
     ## Adds two to its argument.
     + 2
@@ -80,7 +80,7 @@ fn foo {
 
 But, we can unpack it:
 
-```rust
+```python
 fn bar {
     as { a, b, c }; # Expects the implicit argument to be a map, and binds
                     # keys a, b, c to variables.
@@ -91,7 +91,7 @@ fn bar {
 
 ## `[]` is an un-ordered set
 
-```rust
+```python
 # map built-in takes an anonymous function
 >>> [ 1, 2, 3, 4, 5 ] map { + 2 }
 [ 7, 4, 5, 6, 3 ]
@@ -104,7 +104,7 @@ paralellize the `map` built-in.
 
 If ordering is needed, use a map with numeric keys:
 
-```rust
+```python
 >>> { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } as ordered
 { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
 
