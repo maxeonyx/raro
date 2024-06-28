@@ -1,8 +1,0 @@
-# f-strings
-
-1 as one + 1 as two;
-f"{one} {two}" as xy;
-
-# fn-strings
-{ one: 1, two: 2 } fn"{one} "{two}"
-

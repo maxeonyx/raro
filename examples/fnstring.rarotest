@@ -1,0 +1,10 @@
+>>> # f-strings
+>>> 1 as one + 1 as two
+2
+>>> f"{one} {two}" as xy;
+>>> xy
+"1 2"
+>>> # fn-strings
+>>> fn"{one} {two}" as fxy;
+>>> { one, two } fxy
+"1 2"
