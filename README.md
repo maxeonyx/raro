@@ -20,7 +20,7 @@ Did your teachers at school brainwash you into a 6-letter acronym instead?
 - P.E.M.D.A.S.
 - B.I.D.M.A.S.
 - B.A.D.A.S.S.
-- P.E.N.N.A.S.
+- D.A.D.B.O.D.
 - B.E.D.M.A.S.
 
 Enough of such gaslighting. Free yourself from order. Never
