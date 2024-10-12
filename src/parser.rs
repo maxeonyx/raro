@@ -6,8 +6,8 @@
 /// 1 + 2 + 3 as x;
 /// ```
 ///
-/// When writing an expression, appending additional transformations should be done
-/// by ONLY appending additional syntax to the end of the expression.
+/// When writing an expression, appending additional transformations should be
+/// done by ONLY appending additional syntax to the end of the expression.
 ///
 /// ```text
 /// [1 2 3] map x { x + 1 } map x { x * 2 } map x { x - 1 } as y;
@@ -25,6 +25,25 @@
 ///
 /// Semi-colons are used to denote the end of an expression.
 ///
+/// ## In-fix operators
+/// While most things are applied post-fix, most mathematical operators take two
+/// operands. Making a pure "chaining" pattern for that is not really possible.
+///
+/// Instead, in-fix operators are a special case where the right hand side must
+/// be a simple expression.
+///
+/// ```
+/// # literals are simple expressions
+/// 1 + 2 + 3
+/// # variable names are simple expressions
+/// a + b + c
+/// ```
+///
+/// Functions with multiple args can use parens to take the extra args:
+///
+/// ```
+/// a scale(2) repeat{ count: 3 }
+/// ```
 
 use chumsky::{extra::Full, prelude::*};
 
