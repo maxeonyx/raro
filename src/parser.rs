@@ -62,8 +62,15 @@ enum Literal {
 }
 
 #[derive(Debug, Clone)]
+enum SimpleExpr {
+    Literal(Literal),
+    Var(String),
+    Paren(Expr),
+}
+
+#[derive(Debug, Clone)]
 enum Expr {
-    Add(Box<Expr>, Box<Expr>),
+    InfixOp(Box<SimpleExpr>),
     Sub(Box<Expr>, Box<Expr>),
     Mul(Box<Expr>, Box<Expr>),
     Div(Box<Expr>, Box<Expr>),
