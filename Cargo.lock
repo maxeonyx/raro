@@ -220,6 +220,7 @@ dependencies = [
 name = "raro"
 version = "0.1.0"
 dependencies = [
+ "aho-corasick",
  "chumsky",
  "clap",
 ]
