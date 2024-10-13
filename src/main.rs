@@ -3,6 +3,9 @@ use std::fs;
 use std::path::Path;
 use std::path::PathBuf;
 
+use chumsky::Parser as ChumParser;
+use clap::Parser as ClapParser;
+
 mod parser;
 
 // Add two numbers.
@@ -10,15 +13,15 @@ fn run(file: impl AsRef<Path>) -> Result<(), Box<dyn Error>> {
     // Read file to string
     let contents = fs::read_to_string(file)?;
 
-    println!("With text:\n{}", contents);
+    println!("With text:\n===\n{}\n===\n", contents);
+
+    println!("{:?}", parser::file_parser().parse(&contents).unwrap());
 
     Ok(())
 }
 
-use clap::Parser;
-
 /// RARO - Running ARithmetic with Objects
-#[derive(Parser, Debug)]
+#[derive(ClapParser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
     #[clap(value_name = "FILE")]

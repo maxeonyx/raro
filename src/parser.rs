@@ -47,56 +47,33 @@ use aho_corasick::AhoCorasick;
 /// ```
 /// a scale(2) repeat{ count: 3 }
 /// ```
-use chumsky::{extra::Full, prelude::*, primitive};
+use chumsky::{extra::Full, prelude::*};
 
 #[derive(Debug, Clone)]
-enum BracketedNode<'inp> {
-    Str(&'inp str),
-    Round(Vec<BracketedNode<'inp>>),
-    Square(Vec<BracketedNode<'inp>>),
-    Curly(Vec<BracketedNode<'inp>>),
-    Angle(Vec<BracketedNode<'inp>>),
-    InvalidRound(&'inp str),
-    InvalidSquare(&'inp str),
-    InvalidCurly(&'inp str),
-    InvalidAngle(&'inp str),
-}
-
-#[derive(Debug, Clone)]
-struct BlockInner<'inp> {
-    statements: Vec<Expr<'inp>>,
-    expr: Option<Box<Expr<'inp>>>,
-}
-
-#[derive(Debug, Clone)]
-enum Token {
-    PLUS,
-}
-
-#[derive(Debug, Clone)]
-enum Literal {
+pub enum Literal {
     Num(f64),
-    Str(&'static str),
+    // Str(&'static str),
     Bool(bool),
 }
 
 #[derive(Debug, Clone)]
-enum InfixOp {
+pub enum InfixOp {
     Add, // +
     Sub, // -
     Mul, // *
     Div, // /
-    Exp, // **
+         // Exp, // **
 }
 
 #[derive(Debug, Clone)]
-enum Expr<'inp> {
+pub enum Expr<'inp> {
     InfixOp(InfixOp, Box<Expr<'inp>>),
     Literal(Literal),
-    Paren(Box<Expr<'inp>>),
+    // Paren(Box<Expr<'inp>>),
     Var(&'inp str),
-    Assign(Box<Location<'inp>>, Box<Expr<'inp>>),
-    Block(BlockInner<'inp>),
+    // Assign(Box<Location<'inp>>, Box<Expr<'inp>>),
+    Chain(Vec<Expr<'inp>>),
+    // Block(BlockInner<'inp>),
 }
 
 #[derive(Debug, Clone)]
@@ -104,11 +81,11 @@ enum Location<'inp> {
     Var(&'inp str),
 }
 
-#[derive(Debug, Clone)]
-struct ParserState {}
+#[derive(Debug, Clone, Default)]
+pub struct ParserState {}
 
-#[derive(Debug, Clone)]
-struct ParserContext {}
+#[derive(Debug, Clone, Default)]
+pub struct ParserContext {}
 
 const VAR: f64 = 1.156;
 
@@ -131,7 +108,7 @@ const VAR: f64 = 1.156;
 //     a.replace_all(s, &["\t", "\n", "\r", "\"", "\\"])
 // }
 
-fn parser<'inp>(
+pub fn file_parser<'inp>(
 ) -> impl Parser<'inp, &'inp str, Expr<'inp>, Full<Rich<'inp, char>, ParserState, ParserContext>> + Clone
 {
     let p_number = text::digits(10)
@@ -139,43 +116,82 @@ fn parser<'inp>(
         .map(|s: &str| Expr::Literal(Literal::Num(s.parse().unwrap())));
 
     let p_bool = choice((
-        just("true").map(|_| Expr::Literal(Literal::Bool(true))),
-        just("false").map(|_| Expr::Literal(Literal::Bool(false))),
+        just("true")
+            .ignored()
+            .map(|()| Expr::Literal(Literal::Bool(true))),
+        just("false")
+            .ignored()
+            .map(|()| Expr::Literal(Literal::Bool(false))),
     ));
 
     let mut p_expr = Recursive::declare();
     let mut p_chain = Recursive::declare();
+    let mut p_block_inner = Recursive::declare();
+    let mut p_block = Recursive::declare();
     let mut p_simpleexpr = Recursive::declare();
     let mut p_infix = Recursive::declare();
 
-    let parse_infix = |s: &'static str, op: InfixOp| {
-        just(s)
-            .ignore_then(p_simpleexpr)
-            .map(|(state, e)| Expr::InfixOp(op, Box::new(e)))
-    };
-
     p_infix.define(choice((
-        parse_infix("+ ", InfixOp::Add),
-        parse_infix("- ", InfixOp::Add),
-        parse_infix("* ", InfixOp::Add),
-        parse_infix("/ ", InfixOp::Add),
+        just("+ ")
+            .ignore_then(p_simpleexpr.clone())
+            .map(move |e| Expr::InfixOp(InfixOp::Add, Box::new(e))),
+        just("- ")
+            .ignore_then(p_simpleexpr.clone())
+            .map(move |e| Expr::InfixOp(InfixOp::Sub, Box::new(e))),
+        just("* ")
+            .ignore_then(p_simpleexpr.clone())
+            .map(move |e| Expr::InfixOp(InfixOp::Mul, Box::new(e))),
+        just("/ ")
+            .ignore_then(p_simpleexpr.clone())
+            .map(move |e| Expr::InfixOp(InfixOp::Div, Box::new(e))),
     )));
+    if VAR > 4.5 {
+        return p_infix.boxed();
+    }
 
-    p_simpleexpr.define(just("(").ignore_then(p_expr).then_ignore(just(")")));
-
-    // TODO: Strings...
-    // escapes
-    // multiline & whitespace behaviour
-    // f-strings
+    p_simpleexpr.define(choice((
+        p_bool,
+        p_number,
+        p_chain.clone().delimited_by(just("("), just(")")),
+    )));
+    if VAR > 4.5 {
+        return p_simpleexpr.boxed();
+    }
 
     p_chain.define(
-        p_expr
+        p_infix
+            .clone()
             .repeated()
-            .separated_by(just(" "))
-            .collect::<Vec<_>>(),
+            .at_least(1)
+            .collect::<Vec<Expr>>()
+            .map(|v: Vec<Expr>| Expr::Chain(v)),
     );
 
-    p_chain
+    if VAR > 4.5 {
+        return p_chain.boxed();
+    }
+
+    p_block_inner.define(
+        p_chain
+            .clone()
+            .repeated()
+            .at_least(1)
+            .collect::<Vec<Expr>>()
+            .map(Expr::Chain),
+    );
+    if VAR > 4.5 {
+        return p_block_inner.boxed();
+    }
+
+    p_block.define(p_block_inner.delimited_by(just("{"), just("}")));
+
+    if VAR > 4.5 {
+        return p_block.boxed();
+    }
+
+    p_expr.define(choice((p_bool, p_number, p_infix.clone())));
+
+    p_expr.then_ignore(text::whitespace()).boxed()
 }
 
 // fn parse_nonbracketed<'inp>() -> impl Parser<
