@@ -1,0 +1,6 @@
+# Simple REPL that echoes evaluations and yields a stream of values
+loop{ ;
+  '>>> ' stdout.write;
+  readline eval as val print;
+  val
+}

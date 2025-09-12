@@ -73,6 +73,19 @@ Error( ... )
 10
 ```
 
+### Kebab-case identifiers
+
+`a-b` is one name, while `a - b` subtracts.
+
+```python
+>>> 1 as a-b
+1
+>>> a-b
+1
+>>> 5 as a; 2 as b; a - b
+3
+```
+
 ### Functions have one implicit argument
 
 (Similar to [Nix](https://nix.dev/manual/nix/2.18/language/), but even more terse)
@@ -136,3 +149,7 @@ If ordering is needed, use a map with numeric keys:
 
 Ordering is needed much less than you think when programming in a functional
 style.
+
+## Further Reading
+
+See the [Glossary](glossary.md) for translations between Raro and other languages.

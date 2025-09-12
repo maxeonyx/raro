@@ -1,0 +1,15 @@
+# Collatz sequence printed recursively
+fn collatz-step {
+  as n;
+  n print;
+  n == 1 if {
+    1
+  } else {
+    n % 2 == 0 if {
+      n / 2 collatz-step
+    } else {
+      n 3 * + 1 collatz-step
+    }
+  }
+}
+27 collatz-step;

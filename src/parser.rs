@@ -23,7 +23,7 @@ use aho_corasick::AhoCorasick;
 /// In keeping with this idea, we do away with BODMAS
 ///
 /// ```text
-/// 1 + 2 * 3 == 9 as is_true;
+/// 1 + 2 * 3 == 9 as is-true;
 /// ```
 ///
 /// Semi-colons are used to denote the end of an expression.

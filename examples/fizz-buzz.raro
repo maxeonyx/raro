@@ -1,0 +1,13 @@
+# FizzBuzz from 1 to 100
+{ start: 1, end: 100 } range map {
+  as n;
+  n % 15 == 0 if {
+    'FizzBuzz'
+  } else {
+    n % 3 == 0 if {
+      'Fizz'
+    } else {
+      n % 5 == 0 if { 'Buzz' } else { n }
+    }
+  }
+} each{ print };

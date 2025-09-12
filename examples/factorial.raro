@@ -1,0 +1,10 @@
+# Recursive factorial
+fn factorial {
+  as n;
+  n <= 1 if {
+    1
+  } else {
+    n 1 - factorial n *
+  }
+}
+5 factorial print;

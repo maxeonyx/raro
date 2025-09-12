@@ -30,7 +30,7 @@ The application has two top level tasks: `pipeline` and `api-server`. The server
 urls map { http.get(_) } all as bodies;
 
 # Or race for the first result
-urls map { http.get(_) } race as first_body;
+urls map { http.get(_) } race as first-body;
 ```
 
 In both forms, if any request errors, all in-flight requests are cancelled.

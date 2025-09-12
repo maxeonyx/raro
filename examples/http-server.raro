@@ -1,0 +1,6 @@
+# Minimal HTTP server responding with "hello"
+'http' import as http;
+{
+  listen{ http.handle{; 'hello' } await? } await?,
+} as server;
+server await?;

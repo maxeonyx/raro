@@ -1,0 +1,10 @@
+# Recursive Fibonacci
+fn fib-rec {
+  as n;
+  n <= 1 if {
+    n
+  } else {
+    n - 1 fib-rec + (n - 2 fib-rec)
+  }
+}
+10 fib-rec;
