@@ -1,0 +1,7 @@
+# Kebab-case identifier versus subtraction
+10 as a;
+3 as b;
+a - b print;  # subtraction
+
+10 as a-b;    # name includes a dash
+a-b print;    # variable access
