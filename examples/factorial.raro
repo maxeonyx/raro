@@ -1,10 +1,10 @@
 # Recursive factorial
 fn factorial {
-  as current-n;
-  current-n <= 1 if {
+  as n;
+  n <= 1 if {
     1
   } else {
-    current-n 1 - factorial current-n *
+    n 1 - factorial n *
   }
 }
 5 factorial print;

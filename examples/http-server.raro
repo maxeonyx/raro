@@ -2,5 +2,5 @@
 'http' import as http;
 {
   listen{ http.handle{; 'hello' } await? } await?,
-} as hello-server;
-hello-server await?;
+} as server;
+server await?;

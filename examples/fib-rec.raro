@@ -1,10 +1,10 @@
 # Recursive Fibonacci
 fn fib-rec {
-  as current-n;
-  current-n <= 1 if {
-    current-n
+  as n;
+  n <= 1 if {
+    n
   } else {
-    current-n - 1 fib-rec + (current-n - 2 fib-rec)
+    n - 1 fib-rec + (n - 2 fib-rec)
   }
 }
 10 fib-rec;
