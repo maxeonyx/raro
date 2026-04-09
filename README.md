@@ -150,6 +150,26 @@ If ordering is needed, use a map with numeric keys:
 Ordering is needed much less than you think when programming in a functional
 style.
 
+## Trying it out
+
+The current CLI takes a single source file path:
+
+```powershell
+cargo run -- examples/add-five.raro
+```
+
+If you're using Nix, the flake also defines a default package and standard Rust checks:
+
+```powershell
+nix build
+nix flake check
+```
+
 ## Further Reading
 
 See the [Glossary](glossary.md) for translations between Raro and other languages.
+
+- [Concurrency and Memory](concurrency-and-memory.md) when thinking about cancellation, stack management, and how the runtime should size and reserve memory.
+- [Structured Concurrency in Raro](structured-concurrency.md) when exploring how `all`, `race`, and cancellation should compose across nested tasks.
+- [Error handling versus error reporting](error-handling-and-reporting.md) when separating control-flow failures from diagnostics meant for logs, terminals, or UIs.
+- [Built-in Geometric Algebra Library](geometric-algebra.md) when considering the built-in GA module's typing model, aliases, and documentation approach.
